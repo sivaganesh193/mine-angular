@@ -1,0 +1,65 @@
+<button
+    pressEventIndicator
+    type="button"
+    class="cell {{cell.openedIdClassName}}"
+    [attr.data-i]="cell.i"
+    (click)="onClick()"
+    (mousedown)="onMouseDown($event)"
+    (mouseup)="onMouseUp($event)"
+    (contextmenu)="onContextMenu($event)"
+    [ngStyle]="{
+        'width.px': smallScreenCellSize,
+        'height.px': smallScreenCellSize
+    }"
+    [ngClass]="{
+        'opened': cell.isOpened,
+        'flag': cell.label === 'F',
+        'mine': cell.isMine,
+        'mine--exploded': cell.isMineExploded,
+        'flag--wrong': cell.isWrongFlag
+    }">
+
+    <ng-container [ngSwitch]="cell.label">
+
+        <ng-container *ngSwitchCase="'M'">
+            <img class="cell__image" src="/projects/minesweeper/assets/emojis/Mine.png" alt="Pile of poop">
+        </ng-container>
+
+        <ng-container *ngSwitchCase="'F'">
+            <img class="cell__image" src="/projects/minesweeper/assets/emojis/Flag.png" alt="Flag">
+        </ng-container>
+
+        <ng-container *ngSwitchCase="'1'">
+            <img class="cell__image" src="/projects/minesweeper/assets/emojis/1.png">
+        </ng-container>
+
+        <ng-container *ngSwitchCase="'2'">
+            <img class="cell__image" src="/projects/minesweeper/assets/emojis/2.png">
+        </ng-container>
+
+        <ng-container *ngSwitchCase="'3'">
+            <img class="cell__image" src="/projects/minesweeper/assets/emojis/3.png">
+        </ng-container>
+
+        <ng-container *ngSwitchCase="'4'">
+            <img class="cell__image" src="/projects/minesweeper/assets/emojis/4.png">
+        </ng-container>
+
+        <ng-container *ngSwitchCase="'5'">
+            <img class="cell__image" src="/projects/minesweeper/assets/emojis/5.png">
+        </ng-container>
+
+        <ng-container *ngSwitchCase="'6'">
+            <img class="cell__image" src="/projects/minesweeper/assets/emojis/6.png">
+        </ng-container>
+
+        <ng-container *ngSwitchCase="'7'">
+            <img class="cell__image" src="/projects/minesweeper/assets/emojis/7.png">
+        </ng-container>
+
+        <ng-container *ngSwitchCase="'8'">
+            <img class="cell__image" src="/projects/minesweeper/assets/emojis/8.png">
+        </ng-container>
+
+    </ng-container>
+</button>

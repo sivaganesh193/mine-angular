@@ -1,0 +1,15 @@
+<div class="center">
+    <div fxLayout="column" fxLayoutAlign="center">
+      <div class="login-wrapper" fxLayout="row" fxLayoutAlign="center center">
+        <mat-card class="box">
+          <mat-card-content>
+            <mat-form-field class="example-full-width">
+              <input type="number" (keyup)="oset()" [(ngModel)]="ibox" matInput placeholder="Unique Game Code" >
+              <mat-hint *ngIf="hasError" class="mat-error">{{ errorMsg }}</mat-hint>
+            </mat-form-field>
+          </mat-card-content>
+          <button [disabled]="ibox==null || hasError" mat-raised-button color="primary" (click)="onClick()">Start Game</button>
+        </mat-card>
+      </div>
+    </div>
+</div>
