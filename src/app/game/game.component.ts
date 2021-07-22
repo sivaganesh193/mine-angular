@@ -37,7 +37,7 @@ export class GameComponent implements OnInit, OnDestroy, AfterViewInit {
     horizontal: number;
     vertical: number;
     smallScreenCellSize: number;
-    round:number=-1;
+    round:number=-99;
     gameData:GameModel;
 
     message:string
@@ -124,29 +124,34 @@ export class GameComponent implements OnInit, OnDestroy, AfterViewInit {
                             time: this.timer,
                             clicks: this.clicks
                         }).subscribe((res: any) => {
-                            console.log(res.data);
                             this._minesweeper.setFlagsAvailable(0);
                             if(this.round!=5){
-                                this.message="You have won. Proceed to next round"
+                                this.message="Great going! Time to escalate to the next level."
                                 this.buttonMessage="Next Game"
                             }else{
-                                this.message="You have won. All rounds overs"
+                                this.message="Congrats on your success! You’re on your way to a Forbes magazine feature."
+                                this.buttonMessage="Exit"
+                            }
+                            this.toggleGameCommandsModal();
+                        });  
+                    }
+
+                    if (status == GameStatusEnum.Lost) {
+                        this.loginService.updateScore({
+                            team_id: this.gameData.team_id,
+                            current_round: this.gameData.current_round+1,
+                            time: 0,
+                            clicks: this.clicks
+                        }).subscribe((res: any) => {
+                            if(this.round!=5){
+                                this.message="Oops! Try to turn it around next time."
+                                this.buttonMessage="Next Game"
+                            }else{
+                                this.message="Looks like things didn’t go well this time. Keep your hopes high for the upcoming events."
                                 this.buttonMessage="Exit"
                             }
                             this.toggleGameCommandsModal();
                         });
-                        
-                    }
-
-                    if (status == GameStatusEnum.Lost) {
-                        if(this.round!=5){
-                            this.message="You have lost. Try again in next round"
-                            this.buttonMessage="Next Game"
-                        }else{
-                            this.message="You have lost. All rounds overs"
-                            this.buttonMessage="Exit"
-                        }
-                        this.toggleGameCommandsModal();
                         this._minesweeper.setEmojiFace(EmojisEnum.NauseatedFace);
                     }
                 }

@@ -26,6 +26,16 @@ export class LoginService {
       }
     }
   `;
+
+  private TEAMLOGIN = gql`
+    query teamLogin($data: teamLoginQueryInput!){
+      teamLogin(data:$data){
+        team_id
+        current_round
+        roll_no
+      }
+    }
+  `;
   
   private UPDATESCORE = gql`
     mutation updateScore($data: updateScoreInput!){
@@ -33,7 +43,7 @@ export class LoginService {
     }
   `;
 
-  private NEXTSCORE = gql`
+  private NEXTROUND = gql`
     mutation nextRound($data: updateInput!){
       nextRound(data:$data)
     }
@@ -50,6 +60,19 @@ export class LoginService {
     });
   }
 
+  login(ldata: any){
+    return this.apollo.watchQuery<any>({
+      query: this.TEAMLOGIN,
+      variables: {
+          data: {
+            team_id: ldata.UCode
+          }
+      },
+      fetchPolicy: 'no-cache'
+    });
+  }
+
+
   updateScore(data: any){
     console.log(data);
     
@@ -63,7 +86,7 @@ export class LoginService {
 
   nextRound(data: any){
     return this.apollo.mutate({
-      mutation: this.NEXTSCORE,
+      mutation: this.NEXTROUND,
       variables: {
         data,
       },

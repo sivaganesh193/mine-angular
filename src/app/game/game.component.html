@@ -7,7 +7,8 @@
     
     <section class="board">
         <header class="board__header">
-            <div class="round_heading" *ngIf="round!=-1">Round: {{ round }}</div>
+            <div class="round_heading" *ngIf="round!=-99 && round==0">Demo Round</div>
+            <div class="round_heading" *ngIf="round!=-99 && round!=0">Round: {{ round }}</div>
             <div class="board__dynamic-infos">
                 
                 <div class="board__dynamic-info">
